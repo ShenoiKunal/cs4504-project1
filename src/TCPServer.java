@@ -10,7 +10,7 @@
          BufferedReader in = null; // for reading form ServerRouter
 			InetAddress addr = InetAddress.getLocalHost();
 			String host = addr.getHostAddress(); // Server machine's IP			
-			String routerName = "j263-08.cse1.spsu.edu"; // ServerRouter host name
+			String routerName = "localhost"; // ServerRouter host name
 			int SockNum = 5555; // port number
 			
 			// Tries to connect to the ServerRouter
@@ -27,11 +27,11 @@
                System.err.println("Couldn't get I/O for the connection to: " + routerName);
                System.exit(1);
             }
-				
+
       	// Variables for message passing			
          String fromServer; // messages sent to ServerRouter
          String fromClient; // messages received from ServerRouter      
- 			String address ="10.5.3.196"; // destination IP (Client)
+ 			String address ="192.168.50.119"; // destination IP (Client)
 			
 			// Communication process (initial sends/receives)
 			out.println(address);// initial send (IP of the destination Client)
@@ -41,10 +41,9 @@
 			// Communication while loop
       	while ((fromClient = in.readLine()) != null) {
             System.out.println("Client said: " + fromClient);
-            if (fromClient.equals("Bye.")) // exit statement
-					break;
-				fromServer = fromClient.toUpperCase(); // converting received message to upper case
-				System.out.println("Server said: " + fromServer);
+            if (fromClient.equals("Bye.")) {break;} // exit statement
+            fromServer = fromClient.toUpperCase(); // converting received message to upper case
+            System.out.println("Server said: " + fromServer);
             out.println(fromServer); // sending the converted message back to the Client via ServerRouter
          }
 			
